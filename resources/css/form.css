@@ -1,12 +1,28 @@
-body{
+body {
   background: lightgrey;
   font-family: sans-serif;
 }
 
 #fb-rendered-form {
-  clear:both;
-  display:none;
-  button{
-    float:right;
+  clear: both;
+  display: none;
+  button {
+    float: right;
   }
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+  padding: 10px;
+}
+
+.one {
+  width: 70%;
+  float: left;
+}
+
+.two {
+  margin-left: 30%;
+  text-align: center;
 }

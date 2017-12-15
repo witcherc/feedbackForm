@@ -12,15 +12,56 @@
 </head>
 
 <body>
+  <section class="container">
+    <script>
+      function previewForm() {
+        var x = document.getElementById("testForm");
+        var feedback = "";
+        var i;
 
-  <div id="fb-editor"></div>
-  <div id="fb-rendered-form">
-    <form name="testForm" action="#"></form>
-    <button class="btn btn-default edit-form">Edit</button>
-    <button class="btn btn-default preview-form">Preview</button>
-  </div>
+        for (i = 0; i < x.length; i++) {
+          var type = x.elements[i].type;
+          switch (type) {
+            case 'radio':
+              if (x.elements[i].checked) {
+                feedback += x.elements[i].value + " ";
+              };
+              break;
+            case 'checkbox':
+              if (x.elements[i].checked) {
+                feedback += "  " + "&#8226" + " " + x.elements[i].value + "<br>";
+              };
+              break;
+            case 'text':
+              feedback += x.elements[i].value + " ";
+              break;
+            case 'textarea':
+              feedback += x.elements[i].value + " ";
+              break;
+            default:
+              feedback += "";
+          };
+          document.getElementById("preview").innerHTML = feedback;
+        };
+      };
+    </script>
 
+    <div class="one">
+      <div id="fb-editor"></div>
+      <div id="fb-rendered-form">
+        <form id="testForm" name="testForm" action="#" onchange="previewForm()"></form>
+        <button class="btn btn-default edit-form">Edit</button>
+        <button class="btn btn-default preview-form" onclick="previewForm">Preview</button>
+      </div>
+    </div>
+
+  </section>
   <script src="resources/js/index.js"></script>
+
+  <div class="two">
+    <div id="preview" name="preview"></div>
+    <button id="copyText" onclick=copyText()>Copy Text</button>
+  </div>
 
 </body>
 
