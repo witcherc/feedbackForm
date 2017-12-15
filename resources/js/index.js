@@ -46,14 +46,8 @@ jQuery(function($) {
         });
       }
     },
-    fields = [{
-      label: "Line Break",
-      type: "text",
-      icon: "<br>"
-    }],
 
     formBuilder = $fbEditor.formBuilder(fbOptions);
-
 
   $('.edit-form', $formContainer).click(function() {
     document.getElementById("preview").innerHTML = "";
@@ -62,6 +56,10 @@ jQuery(function($) {
   });
 });
 
+function clearForm() {
+  document.getElementById("testForm").reset();
+  document.getElementById("preview").innerHTML = "";
+  };
 
 function copyText() {
   function selectElementText(el) {
@@ -86,4 +84,14 @@ function copyText() {
   };
 
   copySelectionText(para);
+};
+
+
+// When the user clicks on <div>, open the popup
+function copyTooltipFunction() {
+  var popup = document.getElementById("copyTooltip");
+  popup.classList.toggle("show");
+  setTimeout(function() {
+    popup.classList.toggle("hide")
+  }, 3000);
 };

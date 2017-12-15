@@ -22,19 +22,27 @@
         for (i = 0; i < x.length; i++) {
           var type = x.elements[i].type;
           switch (type) {
+
             case 'radio':
               if (x.elements[i].checked) {
-                feedback += x.elements[i].value + " ";
+                feedback += " " + x.elements[i].value + " ";
               };
               break;
+
             case 'checkbox':
-              if (x.elements[i].checked) {
-                feedback += "  " + "&#8226" + " " + x.elements[i].value + "<br>";
+              if (x.elements[i - 1].checked) {
+                if (x.elements[i].checked) {
+                  feedback += "&#8226" + " " + x.elements[i].value + "<br>";
+                };
+              } else if (x.elements[i].checked) {
+                feedback += "<br>" + "&#8226" + " " + x.elements[i].value + "<br>";
               };
               break;
+
             case 'text':
               feedback += x.elements[i].value + " ";
               break;
+
             case 'textarea':
               feedback += x.elements[i].value + " ";
               break;
@@ -52,6 +60,7 @@
         <form id="testForm" name="testForm" action="#" onchange="previewForm()"></form>
         <button class="btn btn-default edit-form">Edit</button>
         <button class="btn btn-default preview-form" onclick="previewForm">Preview</button>
+        <button class="btn btn-default clear-form" onclick="clearForm()">Clear Form</button>
       </div>
     </div>
 
@@ -59,8 +68,11 @@
   <script src="resources/js/index.js"></script>
 
   <div class="two">
-    <div id="preview" name="preview"></div>
-    <button id="copyText" onclick=copyText()>Copy Text</button>
+    <div id="preview" name="preview" style="text-align: left"></div>
+    <div class="popup" onclick="copyTooltipFunction()">
+      <button id="copyText" onclick=copyText()>Copy Text</button>
+      <span class="popuptext" id="copyTooltip">Copied!</span>
+    </div>
   </div>
 
 </body>
