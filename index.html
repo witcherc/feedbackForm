@@ -3,7 +3,7 @@
 
 <head>
   <title>Example formBuilder</title>
-  <link rel="stylesheet" href="resources/css/form.css">
+  <link rel="stylesheet" href="resources/css/skeleton.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
   <script src="http://formbuilder.online/assets/js/form-builder.min.js"></script>
@@ -12,49 +12,65 @@
 </head>
 
 <body>
-  <section class="container">
-    <script>
-      function previewForm() {
-        var x = document.getElementById("testForm");
-        var feedback = "";
-        var i;
+  <script>
+    function previewForm() {
+      var x = document.getElementById("testForm");
+      var feedback = "";
+      var i;
 
-        for (i = 0; i < x.length; i++) {
-          var type = x.elements[i].type;
-          switch (type) {
+      for (i = 0; i < x.length; i++) {
+        var type = x.elements[i].type;
+        switch (type) {
 
-            case 'radio':
+          case 'radio':
+            if (x.elements[i].checked) {
+              feedback += " " + x.elements[i].value + " ";
+            };
+            break;
+
+          case 'checkbox':
+            if (x.elements[i - 1].checked) {
               if (x.elements[i].checked) {
-                feedback += " " + x.elements[i].value + " ";
+                feedback += "&#8226" + " " + x.elements[i].value + "<br>";
               };
-              break;
+            } else if (x.elements[i].checked) {
+              feedback += "<br>" + "&#8226" + " " + x.elements[i].value + "<br>";
+            };
+            break;
 
-            case 'checkbox':
-              if (x.elements[i - 1].checked) {
-                if (x.elements[i].checked) {
-                  feedback += "&#8226" + " " + x.elements[i].value + "<br>";
-                };
-              } else if (x.elements[i].checked) {
-                feedback += "<br>" + "&#8226" + " " + x.elements[i].value + "<br>";
-              };
-              break;
+          case 'text':
+            feedback += x.elements[i].value + " ";
+            break;
 
-            case 'text':
-              feedback += x.elements[i].value + " ";
-              break;
-
-            case 'textarea':
-              feedback += x.elements[i].value + " ";
-              break;
-            default:
-              feedback += "";
-          };
-          document.getElementById("preview").innerHTML = feedback;
+          case 'textarea':
+            feedback += x.elements[i].value + " ";
+            break;
+          default:
+            feedback += "";
         };
-      };
-    </script>
+        document.getElementById("copyText").style.display = "";
+        document.getElementById("preview").innerHTML = feedback;
 
-    <div class="one">
+      };
+    };
+  </script>
+
+  <!-- toolbar -->
+  <div class="container">
+
+    <div class="four columns"><button id="saveTemplate" onclick="saveTemplate()">Download Template</button></div>
+
+    <div class="four columns"><button id="uploadTemplate" onclick="uploadTemplate()">Upload Template</button></div>
+
+    <div class="four columns">
+      <button id="saveSelectedText" onclick="dndSave()">Save Selected Text</button></div>
+  </div>
+
+
+  <div class=container>
+
+    <!-- Form Builder & Render boxes -->
+    <div class="two-thirds column">
       <div id="fb-editor"></div>
       <div id="fb-rendered-form">
         <form id="testForm" name="testForm" action="#" onchange="previewForm()"></form>
@@ -64,14 +80,18 @@
       </div>
     </div>
 
-  </section>
-  <script src="resources/js/index.js"></script>
+    <!-- Preview and bank -->
+    <script src="resources/js/index.js"></script>
+    <div class="one-third column">
+      <div class="centertext" style="word-wrap: normal; margin: 2px">
+        <div id="preview" name="preview"></div>
+        <div class="popup" onclick="copyTooltipFunction()">
+          <span class="popuptext" id="copyTooltip">Copied!</span>
+          <button id="copyText" style="display: none" onclick="copyText()">Copy Text</button>
+        </div>
+      </div>
+      <div id="previewContainer"></div>
 
-  <div class="two">
-    <div id="preview" name="preview" style="text-align: left"></div>
-    <div class="popup" onclick="copyTooltipFunction()">
-      <button id="copyText" onclick=copyText()>Copy Text</button>
-      <span class="popuptext" id="copyTooltip">Copied!</span>
     </div>
   </div>
 
