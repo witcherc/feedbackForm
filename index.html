@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="html">
 
 <head>
   <title>Flex Feedback</title>
@@ -10,62 +10,149 @@
   <script src="https://formbuilder.online/assets/js/form-render.min.js"></script>
 
   <script src="resources/js/index.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,900|Railway" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+<!-- logo bar -->
 
 <body>
+  <div class="container" style="width: 95%; border-bottom-style: solid; border-bottom-color: teal">
+    <div class="row">
+      <div class="top">
+        <div class="flex-logo">
+          <h2 style="color: teal; font: 300; padding-left: 5px; margin-bottom: 0px; text-shadow: 1px 1px #DFE8DA">flexible<b>FEEDBACK</b></h2></div>
 
-  <!-- toolbar -->
-  <div class="container">
-    <div class="three columns"><button class="button-primary" id="download">Download Template</button></div>
-
-    <div class="three columns"><button class="button-primary" id="uploadButton">Upload Template</button>
-      <form id="uploadForm"><input id="uploadInput" type="file" style="display: none"></input>
-        <input id="submitFileButton" type="button" value="Submit" style="display: none"></input>
-      </form>
+        <div class="flex-tagline" style="padding-right: 5px; color: teal; text-shadow: 1px 1px #DFE8DA"> LET'S GET THIS DONE BEFORE LUNCH</div>
+      </div>
     </div>
-
-    <div class="six columns">
-      <a style="text-align: right; float: right" href="about.html">About Flex Feedback</a></div>
   </div>
 
-  <div class=container>
+  <!-- tool bar-->
+  <div class="container" style="width: 95%; margin-top: 10px">
+    <!-- download tooltip and button-->
+    <div class="row">
 
-    <!-- Form Builder & Render boxes -->
-    <div class="two-thirds column">
-      <div id="build-wrap">
-        <div id="fb-editor"></div>
-        <div id="fb-rendered-form">
-          <form id="testForm" name="testForm" action="#" onchange="previewForm()"></form>
-          <button class="btn btn-default edit-form">Edit</button>
-          <button class="btn btn-default preview-form" onclick="previewForm()">Preview</button>
-          <button class="btn btn-default clear-form" onclick="clearForm()">Clear Form</button>
+      <!-- upload form-->
+      <form id="uploadForm" style="display: none">
+        <input id="uploadInput" type="file"></input>
+        <input id="submitFileButton" type="button" class="button-primary" value="Submit"></input>
+      </form>
+
+      <!-- about page tooltip and button-->
+      <div class="tooltip">
+        <button class="button-primary" onclick="window.open('about.html')"><i class="fa fa-question-circle-o" style="font-size: large"></i></button>
+        <span class="tooltiptext" style="width: 100px; margin-left: -50px">Learn more</span>
+      </div>
+
+      <!-- download tooltip and button-->
+      <div class="tooltip">
+        <button class="button-primary" id="download"><i class="fa fa-download" style="font-size: large"></i></button>
+        <span class="tooltiptext">Download template file to computer</span>
+      </div>
+
+      <!-- upload tooltip and button-->
+      <div class="tooltip">
+        <button class="button-primary" id="uploadButton"><i class="fa fa-upload" style="font-size: large"></i></button>
+        <span class="tooltiptext">Upload template file from computer</span>
+      </div>
+
+      <!-- recommended tooltip and button-->
+      <div class="tooltip">
+        <button class="button-primary" id="recommendedButton"><i class="fa fa-heart" style="font-size: large"></i></button>
+        <span class="tooltiptext">Use our favorite template</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- toolbar -->
+
+  <div class="container" style="width: 95%">
+    <div class="row">
+
+      <!-- Form Builder & Render boxes -->
+      <div class="eight columns">
+        <h4 id="templateBuilderLabel" style="text-align: center">Template Builder</h4>
+        <h4 id="feedbackTemplateLabel" style="text-align: center; display: none">Feedback Template</h4>
+        <div id="build-wrap">
+          <div id="fb-editor"></div>
+          <div id="fb-rendered-form">
+            <form id="testForm" name="testForm" action="#" onchange="previewForm()"></form>
+
+            <div class="tooltip">
+              <button class="btn btn-default edit-form button-primary"><i class="fa fa-pencil-square-o" style="font-size: large"></i></button>
+              <span class="tooltiptext" style="width: 100px; margin-left: -50px">Edit form</span>
+            </div>
+
+            <div class="tooltip">
+              <button class="btn btn-default preview-form button-primary" onclick="previewForm()"><i class="fa fa-eye" style="font-size: large"></i></button>
+              <span class="tooltiptext">Preview feedback</span>
+            </div>
+
+            <div class="tooltip">
+              <button class="btn btn-default clear-form button-primary" onclick="clearForm()"><i class="fa fa-undo" style="font-size: large"></i></button>
+              <span class="tooltiptext" style="width: 100px; margin-left: -50px">Clear form</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview and bank -->
+
+      <div class="four columns">
+        <div id="formPreview" style="display">
+          <h4 style="text-align: center; margin-bottom: 0px">Template Preview</h4>
+        </div>
+
+        <div id="feedbackPreview" style="display: none">
+          <h3 style="text-align: center; margin-bottom: 0px">Feedback</h3>
+
+          <div class="previewBox">
+            <div id="preview" name="preview"></div>
+          </div>
+
+          <div class="popup" onclick="copyTooltipFunction()">
+            <div class="tooltip">
+              <button id="copyText" class="button-primary" style="display: none; height: 34px; padding: 0 10px" onclick="copyText()"><i class="fa fa-copy" style="font-size: large"></i></button>
+
+              <span class="popuptext" id="copyTooltip">Copied!</span>
+              <span class="tooltiptext">Copy to clipboard</span>
+            </div>
+          </div>
+
+
+          <div id="previewContainer" style="text-align: left">
+
+            <div style="text-align: center; display: inline">
+              <h4 style="text-align: center; margin-bottom: 0px"><br>Comment Bank</h4>
+
+              <button class="button-primary" id="saveSelectedText" style=" height: 34px; padding: 0 10px; float: left" onclick="dndSave()"><i class="fa fa-save" style="font-size: large"></i></button>
+
+              <label for "saveSelectedText" id="bankInstructions" style="vertical-align: middle; margin-left: 2px">Highlight any text and <em>click</em>.</label>
+
+              <label for "saveSelectedText" id="snippetInstructions" style="vertical-align: top; margin-left: 4px; display: none">To use snippets, drag them onto the form.<br></label>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
+  </div>
+  </div>
 
-    <!-- Preview and bank -->
 
-    <div class="one-third column">
-      <h5 style="text-align: center; margin-bottom: 0px">Feedback</h5>
-      <div class="popup" onclick="copyTooltipFunction()">
-        <span class="popuptext" id="copyTooltip">Copied!</span>
-        <button id="copyText" style="display: none" onclick="copyText()">Copy Text</button>
-      </div>
-      <div class="centertext" style="word-wrap: normal; margin: 1px">
-        <div id="preview" name="preview"></div>
-      </div>
-      <div id="previewContainer" style="text-align: center">
-        <h5 style="text-align: center; margin-bottom: 0px">Comment Bank</h5>
-        <button class="button-primary" id="saveSelectedText" onclick="dndSave()">Save Selected Text</button>
-        <p style="text-align: center; margin-bottom: 0px">Highlight and click <em>Save Selected Text</em>. To use, drag comment onto form.</p>
-      </div>
-
+  <div class="container" style="width: 100%">
+    <div class="row">
+      <footer class="footer">
+        <div style="padding-left: 10px">Ⓒ Copyright 2017 Christine Witcher. All rights reserved.
+        </div>
+      </footer>
     </div>
   </div>
-  <footer class="footer">
-    <div style="padding-left: 10px">Ⓒ Copyright 2017 Christine Witcher. All rights reserved.
-    </div>
-  </footer>
+
+
 </body>
 
 </html>

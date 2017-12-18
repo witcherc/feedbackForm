@@ -82,7 +82,15 @@ jQuery(function($) {
 
       onSave: function() {
         $fbEditor.toggle();
+        document.getElementById("formPreview").style.display = "none";
+        document.getElementById("feedbackPreview").style.display = "";
+        document.getElementById("download").style.display = "none";
+        document.getElementById("uploadButton").style.display = "none ";
+        document.getElementById("recommendedButton").style.display = "none ";
+        document.getElementById("feedbackTemplateLabel").style.display = "";
+        document.getElementById("templateBuilderLabel").style.display = "none";
         $formContainer.toggle();
+
         $('form', $formContainer).formRender({
           formData: formBuilder.formData
         });
@@ -110,7 +118,14 @@ jQuery(function($) {
     document.getElementById("preview").innerHTML = "";
     $fbEditor.toggle();
     $formContainer.toggle();
+    document.getElementById("formPreview").style.display = "";
+    document.getElementById("feedbackPreview").style.display = "none";
+    document.getElementById("download").style.display = "";
+    document.getElementById("uploadButton").style.display = "";
     document.getElementById("copyText").style.display = "none";
+    document.getElementById("recommendedButton").style.display = "";
+    document.getElementById("feedbackTemplateLabel").style.display = "none";
+    document.getElementById("templateBuilderLabel").style.display = "";
   });
 
   //uploading a Template
@@ -120,8 +135,7 @@ jQuery(function($) {
       document.getElementById('uploadButton').style.display = "none";
 
       //get a text area to show up
-      document.getElementById('uploadInput').style.display = "";
-      document.getElementById('submitFileButton').style.display = "";
+      document.getElementById('uploadForm').style.display = "";
 
       //when submitFileButton is clicked, read JSON file, if valid: use, update tempalte, and reset hide/show elements
 
@@ -157,6 +171,14 @@ jQuery(function($) {
         document.getElementById('uploadButton').style.display = "";
       });
     });
+
+  //function to set recommended template as form dataStr
+  document.getElementById('recommendedButton').addEventListener('click', function() {
+
+    var recommendedData = '[{"type":"paragraph","label":"This assignment asked you to"},{"type":"text","name":"text-1513547880266"},{"type":"paragraph","label":"Your work:"},{"type":"checkbox-group","name":"checkbox-group-1513547900673","values":[{"label":"thing one","value":"has this great thing"},{"label":"thing two","value":"has this other great thing"}]},{"type":"paragraph","label":"When revising your work, make sure that it"},{"type":"checkbox-group","name":"checkbox-group-1513547961507","values":[{"label":"thing one","value":"has this great thing"},{"label":"thing two","value":"has this other great thing"}]},{"type":"paragraph","label":"You are currently at a level"},{"type":"text","name":"text-1513548031407"},{"type":"radio-group","name":"radio-group-1513548141369","values":[{"label":"4","value":"(mastery)."},{"label":"3","value":"(proficiency)."},{"label":"2","value":"(developing proficiency)."}]},{"type":"paragraph","label":"To work towards mastery, you should"},{"type":"textarea","name":"textarea-1513548001796"}]';
+
+    formBuilder.actions.setData(recommendedData);
+  });
 });
 
 //function to clear the form
@@ -192,7 +214,7 @@ function copyText() {
   copySelectionText(para);
 };
 
-// When the user clicks on the button, open the popup
+// When the user clicks on the save snippet button, open the popup
 function copyTooltipFunction() {
   var popup = document.getElementById("copyTooltip");
   popup.classList.toggle("show");
@@ -214,11 +236,15 @@ function dndSave() {
   function saveToBank() {
     var div = document.createElement("DIV");
     var t = getSelectionText();
-    div.setAttribute("id", Date.now());
-    div.setAttribute("draggable", "true");
-    div.setAttribute("class", "bank");
-    div.innerHTML = t;
-    document.getElementById("previewContainer").appendChild(div);
+    if (t != "") {
+      div.setAttribute("id", Date.now());
+      div.setAttribute("draggable", "true");
+      div.setAttribute("class", "bank");
+      div.innerHTML = t;
+      document.getElementById('snippetInstructions').style.display = "";
+      document.getElementById('bankInstructions').style.display = "none";
+      document.getElementById("previewContainer").appendChild(div);
+    };
   };
 
   saveToBank();
@@ -269,23 +295,35 @@ function previewForm() {
         if (x[0].childNodes[i].childNodes[0].className === "fb-checkbox-group-label") {
 
           var optionsList = x[0].childNodes[i].childNodes[1].children;
+          var checkedList = "";
           var listLength = optionsList.length;
           var j;
 
-          for (j = 0; j < listLength; j++) {
-            if (j > 0) {
-              if (optionsList[j - 1].childNodes[0].checked) {
-                if (optionsList[j].childNodes[0].checked) {
-                  feedback += "&#8226" + " " + optionsList[j].childNodes[0].value + "<br>";
-                };
-              };
-            } else if (optionsList[j].childNodes[0].checked) {
-              feedback += "<br>" + "&#8226" + " " + optionsList[j].childNodes[0].value + "<br>";
+          for (j = 0; j < listLength; j++) { //for each item in the list, if it's checked --> add to checkedList with a bullet and break
+
+            if (optionsList[j].childNodes[0].checked) {
+              checkedList += "&#8226" + " " + optionsList[j].childNodes[0].value + "<br>";
             };
           };
-          break;
+          feedback += "<br>" + checkedList;
         };
 
+        /*
+
+
+                if (j > 0) {
+                  if (optionsList[j - 1].childNodes[0].checked) {
+                    if (optionsList[j].childNodes[0].checked) {
+                      feedback += "&#8226" + " " + optionsList[j].childNodes[0].value + "<br>";
+                    };
+                  } else if (optionsList[j].childNodes[0].checked) {
+                    feedback += "<br>" + "&#8226" + " " + optionsList[j].childNodes[0].value + "<br>";
+                  };
+                };
+            };
+            break;
+          };
+        */
         //text fields and text areas
         var type = x[0].childNodes[i].childNodes[1].type;
         switch (type) {
