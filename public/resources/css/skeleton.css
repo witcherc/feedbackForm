@@ -172,6 +172,7 @@ body {
   font-weight: 400;
   font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif, 'Lato', sans-serif;
   color: #222;
+  margin: 0;
 }
 
 f
@@ -593,20 +594,16 @@ there.
 /* THIS LITTLE FOOTER, just chillin... */
 
 .footer {
-  list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: linear-gradient(to right, #135058, #43cea2);
   color: #DFE8DA;
   bottom: 0;
-  position: fixed;
+  position: relative;
   width: 100%;
+  display: block;
 }
 
-.header {
-  background: linear-gradient(to right, #135058, #43cea2);
-}
 
 /* value image blocks */
 

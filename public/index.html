@@ -3,16 +3,26 @@
 
 <head>
   <title>Flex Feedback</title>
-  <link rel="stylesheet" href="resources/css/skeleton.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-  <script src="http://formbuilder.online/assets/js/form-builder.min.js"></script>
-  <script src="https://formbuilder.online/assets/js/form-render.min.js"></script>
 
-  <script src="resources/js/index.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,900|Railway" rel="stylesheet">
+  <link rel="stylesheet" href="resources/css/skeleton.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+  <script src="resources/vendors/formBuilder/dist/form-builder.min.js"></script>
+
+  <script src="resources/vendors/formBuilder/dist/form-render.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,900|Raleway" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+
+
+
+  <script src="resources/js/index.js"></script>
 </head>
 <!-- logo bar -->
 
@@ -41,7 +51,7 @@
 
       <!-- about page tooltip and button-->
       <div class="tooltip">
-        <button class="button-primary" onclick="window.open('about.html')"><i class="fa fa-question-circle-o" style="font-size: large"></i></button>
+        <button class="button-primary" onclick="window.open('about.html')" style="background-color: #ffbb99; border-color:#ffbb99"><i class="fa fa-question-circle-o" style="font-size: large"></i></button>
         <span class="tooltiptext" style="width: 100px; margin-left: -50px">Learn more</span>
       </div>
 
@@ -102,12 +112,18 @@
       <!-- Preview and bank -->
 
       <div class="four columns">
-        <div id="formPreview" style="display">
-          <h4 style="text-align: center; margin-bottom: 0px">Template Preview</h4>
+        <div id="classSetup" style="display">
+          <h4 style="text-align: center; margin-bottom: 0px">Class List Setup</h4>
+          <form id="classList">
+            <label for "students">Enter student names, separated by commas. Leave blank to use form without producing a feedback document.</label>
+            <textarea id="students" rows="10" cols="30"></textarea>
+          </form>
         </div>
 
         <div id="feedbackPreview" style="display: none">
           <h3 style="text-align: center; margin-bottom: 0px">Feedback</h3>
+          <p id="activeStudentDisplay"></p>
+          <p id="studentId" style="display: none"></p>
 
           <div class="previewBox">
             <div id="preview" name="preview"></div>
@@ -122,37 +138,48 @@
             </div>
           </div>
 
-
-          <div id="previewContainer" style="text-align: left">
-
-            <div style="text-align: center; display: inline">
-              <h4 style="text-align: center; margin-bottom: 0px"><br>Comment Bank</h4>
-
-              <button class="button-primary" id="saveSelectedText" style=" height: 34px; padding: 0 10px; float: left" onclick="dndSave()"><i class="fa fa-save" style="font-size: large"></i></button>
-
-              <label for "saveSelectedText" id="bankInstructions" style="vertical-align: middle; margin-left: 2px">Highlight any text and <em>click</em>.</label>
-
-              <label for "saveSelectedText" id="snippetInstructions" style="vertical-align: top; margin-left: 4px; display: none">To use snippets, drag them onto the form.<br></label>
+          <div>
+            <div class="tooltip">
+              <button id="saveFeedbackToList" class="button-primary" style="display: inlineblock; height: 34px; padding: 0 10px"><i class="fa fa-save" style="font-size: large" onclick="saveToTable()"></i></button>
+              <span class="tooltiptext">Save to class list</span>
             </div>
 
+            <div id="previewContainer" style="text-align: left">
+
+              <div style="text-align: center; display: inline">
+                <h4 style="text-align: center; margin-bottom: 0px"><br>Comment Bank</h4>
+
+                <button class="button-primary" id="saveSelectedText" style=" height: 34px; padding: 0 10px; float: left" onclick="dndSave()"><i class="fa fa-save" style="font-size: large"></i></button>
+
+                <label for "saveSelectedText" id="bankInstructions" style="vertical-align: middle; margin-left: 2px">Highlight any text and <em>click</em>.</label>
+
+                <label for "saveSelectedText" id="snippetInstructions" style="vertical-align: top; margin-left: 4px; display: none">To use snippets, drag them onto the form.<br></label>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  </div>
 
-
-  <div class="container" style="width: 100%">
-    <div class="row">
-      <footer class="footer">
-        <div style="padding-left: 10px">Ⓒ Copyright 2017 Christine Witcher. All rights reserved.
+    <div class="container">
+      <div class="row">
+        <div class="twelve columns">
+          <table id="feedbackTable">
+            <tr>
+              <th>Set as Active</th>
+              <th>Student</th>
+              <th>Feedback</th>
+            </tr>
+          </table>
         </div>
-      </footer>
+      </div>
     </div>
-  </div>
 
-
-</body>
+    <footer class="footer">
+      <div style="padding-left: 10px">Ⓒ Copyright 2017 Christine Witcher. All rights reserved.
+      </div>
+    </footer>
 
 </html>
+</body>

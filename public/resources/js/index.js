@@ -80,9 +80,10 @@ jQuery(function($) {
 
       editOnAdd: true,
 
+
       onSave: function() {
         $fbEditor.toggle();
-        document.getElementById("formPreview").style.display = "none";
+        document.getElementById("classSetup").style.display = "none";
         document.getElementById("feedbackPreview").style.display = "";
         document.getElementById("download").style.display = "none";
         document.getElementById("uploadButton").style.display = "none ";
@@ -94,9 +95,9 @@ jQuery(function($) {
         $('form', $formContainer).formRender({
           formData: formBuilder.formData
         });
+        saveNames();
       }
     },
-
     formBuilder = $fbEditor.formBuilder(fbOptions);
 
   //add listener for download button and create function to download file
@@ -118,7 +119,7 @@ jQuery(function($) {
     document.getElementById("preview").innerHTML = "";
     $fbEditor.toggle();
     $formContainer.toggle();
-    document.getElementById("formPreview").style.display = "";
+    document.getElementById("classSetup").style.display = "";
     document.getElementById("feedbackPreview").style.display = "none";
     document.getElementById("download").style.display = "";
     document.getElementById("uploadButton").style.display = "";
@@ -308,22 +309,6 @@ function previewForm() {
           feedback += "<br>" + checkedList;
         };
 
-        /*
-
-
-                if (j > 0) {
-                  if (optionsList[j - 1].childNodes[0].checked) {
-                    if (optionsList[j].childNodes[0].checked) {
-                      feedback += "&#8226" + " " + optionsList[j].childNodes[0].value + "<br>";
-                    };
-                  } else if (optionsList[j].childNodes[0].checked) {
-                    feedback += "<br>" + "&#8226" + " " + optionsList[j].childNodes[0].value + "<br>";
-                  };
-                };
-            };
-            break;
-          };
-        */
         //text fields and text areas
         var type = x[0].childNodes[i].childNodes[1].type;
         switch (type) {
@@ -348,4 +333,77 @@ function previewForm() {
   document.getElementById("copyText").style.display = "";
   document.getElementById("preview").innerHTML = feedback;
 
+};
+
+function saveNames() {
+
+  var namesList = document.getElementById('students').value;
+  var table = document.getElementById('feedbackTable');
+
+  if (namesList != "") {
+    var namesArray = namesList.split(",");
+    var length = namesArray.length;
+    var i;
+
+    for (i = 0; i < length; i++) {
+
+      var student = namesArray[i];
+      var id = namesArray[i].replace(/\s+/g, '');
+      var row = table.insertRow(i + 1);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cellLabel = i;
+
+      var button = document.createElement("BUTTON");
+      var t = document.createTextNode("Choose");
+
+      button.setAttribute("class", "button-primary");
+      button.setAttribute("id", id);
+      button.setAttribute("value", student);
+      button.appendChild(t);
+
+      row.setAttribute("onclick", "setActive(this)");
+
+      cell1.appendChild(button);
+      cell2.innerHTML = namesArray[i];
+      cell3.innerHTML;
+
+      cell3.setAttribute("id", cellLabel);
+    };
+
+    return namesArray;
+
+  } else {
+    console.log('list is empty');
+  };
+};
+
+function setActive(elem) {
+  var x = elem.rowIndex - 1;
+  var y = document.getElementById("feedbackTable").rows[x + 1].cells;
+  var name = y[1].innerHTML;
+
+
+  document.getElementById('activeStudentDisplay').innerHTML = "to " + name + ":";
+
+  document.getElementById('studentId').innerHTML = x;
+};
+
+function saveToTable() {
+  var feedbackText = document.getElementById('preview').innerHTML;
+  var x = document.getElementById('studentId').innerHTML;
+  var data = document.getElementById(x);
+
+  data.textContent = feedbackText;
+
+  if (data !== null) {
+    var sure = confirm("This student already has feedback. Do you want to replace it?");
+    if (sure == true) {
+      data.textContent = feedbackText;
+    };
+
+  } else {
+    data.textContent = feedbackText;
+  };
 };
