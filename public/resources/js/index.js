@@ -130,6 +130,14 @@ jQuery(function($) {
     document.getElementById("students").value = "";
     document.getElementById("rightPane").style.display = "none";
 
+    var oldStudent = document.getElementById("studentId").innerHTML;
+    var activeRow = "row" + oldStudent;
+
+    if (oldStudent) {
+      document.getElementById(activeRow).style.backgroundColor = null;
+      document.getElementById("studentId").innerHTML = "";
+    };
+
 
     var table = document.getElementById('feedbackTable');
     if (table.rows.length > 1) {
@@ -191,6 +199,25 @@ jQuery(function($) {
 
     formBuilder.actions.setData(data);
     return;
+  });
+
+  document.getElementById('downloadTable').addEventListener('click', function() {
+    var doc = new jsPDF('p', 'pt', 'letter');
+    var res = doc.autoTableHtmlToJson(document.getElementById("feedbackTable"));
+
+
+
+    doc.autoTable(res.columns, res.data, {
+      startY: 60,
+      theme: 'striped',
+      headerStyles: {
+        fillColor: [50, 140, 193]
+      },
+      addPageContent: function(data) {
+        doc.text("created with Flexible Feedback (flexfeedback.com)", 20, 30);
+      }
+    });
+    doc.save();
   });
 });
 
@@ -380,6 +407,7 @@ function saveNames() {
 
       row.setAttribute("onclick", "setActive(this)");
       row.setAttribute("id", "row" + i);
+      row.setAttribute("contentEditable", true);
 
       cell1.innerHTML = namesArray[i];
 

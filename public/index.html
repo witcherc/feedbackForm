@@ -12,10 +12,19 @@
   <!-- libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+
 
   <!-- APIs & Code Scripts -->
   <script src="resources/vendors/formBuilder/dist/form-builder.min.js"></script>
   <script src="resources/vendors/formBuilder/dist/form-render.min.js"></script>
+
+  <script src="resources/vendors/jsPDF/jspdf.debug.js"></script>
+  <script src="resources/vendors/jsPDF/jspdf.min.js"></script>
+  <script src="resources/vendors/jsPDF/jspdf.plugin.autotable.min.js"></script>
+
+
+
   <script src="resources/js/index.js"></script>
 </head>
 
@@ -112,9 +121,10 @@
               <th>Feedback</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="tbody" contenteditable>
           </tbody>
         </table>
+        <button id="downloadTable" class="button-primary">Download</button>
       </div>
 
       <!-- Preview and bank -->
@@ -134,7 +144,7 @@
           <p id="studentId" style="display: none"></p>
 
           <div class="previewBox">
-            <div id="preview" name="preview"></div>
+            <div id="preview" name="preview" contenteditable></div>
           </div>
           <div id="copyButtonSet">
             <div class="popup" onclick="copyTooltipFunction()">
