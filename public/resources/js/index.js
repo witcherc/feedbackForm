@@ -1,7 +1,5 @@
 jQuery(function($) {
-  var formData;
-  var $fbEditor = $(document.getElementById('fb-editor')),
-
+  $fbEditor = $(document.getElementById('fb-editor')),
     $formContainer = $(document.getElementById('fb-rendered-form')),
 
     fbOptions = {
@@ -98,11 +96,12 @@ jQuery(function($) {
         saveNames();
       }
     },
+
     formBuilder = $fbEditor.formBuilder(fbOptions);
 
   //add listener for download button and create function to download file
   document.getElementById('download').addEventListener('click',
-    function downloadObjectAsJson(exportObj, exportName) {
+    function(exportObj, exportName) {
       var exportObj = formBuilder.actions.getData('json');
 
       var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
@@ -127,58 +126,68 @@ jQuery(function($) {
     document.getElementById("recommendedButton").style.display = "";
     document.getElementById("feedbackTemplateLabel").style.display = "none";
     document.getElementById("templateBuilderLabel").style.display = "";
+    document.getElementById("students").value = "";
+
+    var table = document.getElementById('feedbackTable');
+    if (table.rows.length > 1) {
+      document.getElementById('studentsLabel').innerHTML = "To add additional students, enter their names separated by commas."
+    };
   });
 
   //uploading a Template
   document.getElementById('uploadButton').addEventListener('click',
     function() {
-      //get the button to go away
-      document.getElementById('uploadButton').style.display = "none";
 
-      //get a text area to show up
-      document.getElementById('uploadForm').style.display = "";
+      if (window.File && window.FileReader && window.FileList) {
 
-      //when submitFileButton is clicked, read JSON file, if valid: use, update tempalte, and reset hide/show elements
+        document.getElementById('uploadForm').style.display = "";
+        document.getElementById('submitFileButton').addEventListener('click', function uploadFiles() {
 
-      document.getElementById('submitFileButton').addEventListener('click', function() {
+          var files = document.getElementById('uploadInput').files;
 
-        var files = document.getElementById('uploadInput').files;
-
-        if (files.length <= 0) {
-          alert("No file was selected.");
-          return false;
-        };
-
-        if (files[0].type === 'application/json') {
-
-          var file = files[0];
-          var reader = new FileReader();
-
-          reader.onload = function(event) {
-            var formData = event.target.result;
-            var formattedData = JSON.parse(formData);
-            console.log(formattedData);
-            formBuilder.actions.setData(formattedData);
+          if (files.length <= 0) {
+            alert("No file was selected.");
+            return;
           };
 
-          reader.readAsText(file);
+          if (files[0].type === 'application/json') {
 
-        } else {
-          alert("Not an accepted file type. You must upload a .json file.");
-        };
+            var file = files[0];
+            var reader = new FileReader();
 
-        document.getElementById('uploadInput').style.display = "none";
-        document.getElementById('submitFileButton').style.display = "none";
-        document.getElementById('uploadButton').style.display = "";
-      });
+            reader.onload = function(event) {
+              var formData = event.target.result;
+              var formattedData = JSON.parse(formData);
+              console.log(formattedData);
+              formBuilder.actions.setData(formattedData);
+            };
+
+            reader.readAsText(file);
+            document.getElementById('uploadForm').style.display = "none";
+            return;
+
+          } else {
+            alert("Not an accepted file type. You must upload a .json file.");
+          };
+        });
+
+        document.getElementById('cancelFileButton').addEventListener('click', function cancelFileUpload() {
+          document.getElementById('uploadForm').style.display = "none";
+          return;
+        });
+
+      } else {
+        alert('File uploading is not fully supported in this browser. Please try another browser (like Chrome).');
+      };
     });
 
   //function to set recommended template as form dataStr
   document.getElementById('recommendedButton').addEventListener('click', function() {
 
-    var recommendedData = '[{"type":"paragraph","label":"This assignment asked you to"},{"type":"text","name":"text-1513547880266"},{"type":"paragraph","label":"Your work:"},{"type":"checkbox-group","name":"checkbox-group-1513547900673","values":[{"label":"thing one","value":"has this great thing"},{"label":"thing two","value":"has this other great thing"}]},{"type":"paragraph","label":"When revising your work, make sure that it"},{"type":"checkbox-group","name":"checkbox-group-1513547961507","values":[{"label":"thing one","value":"has this great thing"},{"label":"thing two","value":"has this other great thing"}]},{"type":"paragraph","label":"You are currently at a level"},{"type":"text","name":"text-1513548031407"},{"type":"radio-group","name":"radio-group-1513548141369","values":[{"label":"4","value":"(mastery)."},{"label":"3","value":"(proficiency)."},{"label":"2","value":"(developing proficiency)."}]},{"type":"paragraph","label":"To work towards mastery, you should"},{"type":"textarea","name":"textarea-1513548001796"}]';
+    var data = '[{"type":"paragraph","label":"This assignment asked you to"},{"type":"text","name":"text-1513547880266"},{"type":"paragraph","label":"Your work:"},{"type":"checkbox-group","name":"checkbox-group-1513547900673","values":[{"label":"thing one","value":"has this great thing"},{"label":"thing two","value":"has this other great thing"}]},{"type":"paragraph","label":"When revising your work, make sure that it"},{"type":"checkbox-group","name":"checkbox-group-1513547961507","values":[{"label":"thing one","value":"has this great thing"},{"label":"thing two","value":"has this other great thing"}]},{"type":"paragraph","label":"You are currently at a level"},{"type":"text","name":"text-1513548031407"},{"type":"radio-group","name":"radio-group-1513548141369","values":[{"label":"4","value":"(mastery)."},{"label":"3","value":"(proficiency)."},{"label":"2","value":"(developing proficiency)."}]},{"type":"paragraph","label":"To work towards mastery, you should"},{"type":"textarea","name":"textarea-1513548001796"}]';
 
-    formBuilder.actions.setData(recommendedData);
+    formBuilder.actions.setData(data);
+    return;
   });
 });
 
@@ -187,6 +196,7 @@ function clearForm() {
   document.getElementById("testForm").reset();
   document.getElementById("preview").innerHTML = "";
   document.getElementById("copyText").style.display = "none";
+  return;
 };
 
 //function to copy the preview feedback to clipboard
@@ -197,6 +207,7 @@ function copyText() {
     var selection = window.getSelection() // get Selection object from currently user selected text
     selection.removeAllRanges() // unselect any user selected text (if any)
     selection.addRange(range) // add range to Selection object to select it
+    return;;
   };
 
   var para = document.getElementById('preview');
@@ -222,6 +233,7 @@ function copyTooltipFunction() {
   setTimeout(function() {
     popup.classList.toggle("hide")
   }, 1000);
+  return;
 };
 
 //function to save selected text to the bank
@@ -232,7 +244,7 @@ function dndSave() {
       selectedText = window.getSelection().toString();
     }
     return selectedText;
-  };
+  }
 
   function saveToBank() {
     var div = document.createElement("DIV");
@@ -246,10 +258,9 @@ function dndSave() {
       document.getElementById('bankInstructions').style.display = "none";
       document.getElementById("previewContainer").appendChild(div);
     };
-  };
-
+  }
   saveToBank();
-};
+}
 
 //listener to allow drag-and-drop of banked text
 document.addEventListener('dragstart', function(event) {
@@ -340,7 +351,10 @@ function saveNames() {
   var namesList = document.getElementById('students').value;
   var table = document.getElementById('feedbackTable');
 
+
+  //if the names list has some names in it
   if (namesList != "") {
+
     var namesArray = namesList.split(",");
     var length = namesArray.length;
     var i;
@@ -357,6 +371,7 @@ function saveNames() {
 
       var button = document.createElement("BUTTON");
       var t = document.createTextNode("Choose");
+      var p = document.createTextNode("")
 
       button.setAttribute("class", "button-primary");
       button.setAttribute("id", id);
@@ -364,16 +379,16 @@ function saveNames() {
       button.appendChild(t);
 
       row.setAttribute("onclick", "setActive(this)");
+      row.setAttribute("id", "row" + i);
 
       cell1.appendChild(button);
       cell2.innerHTML = namesArray[i];
-      cell3.innerHTML;
+      cell3.appendChild(p);
 
       cell3.setAttribute("id", cellLabel);
     };
 
     return namesArray;
-
   } else {
     console.log('list is empty');
   };
@@ -393,17 +408,20 @@ function setActive(elem) {
 function saveToTable() {
   var feedbackText = document.getElementById('preview').innerHTML;
   var x = document.getElementById('studentId').innerHTML;
-  var data = document.getElementById(x);
+  var child = document.getElementById(x);
 
-  data.textContent = feedbackText;
-
-  if (data !== null) {
-    var sure = confirm("This student already has feedback. Do you want to replace it?");
-    if (sure == true) {
-      data.textContent = feedbackText;
-    };
+  if (x == "") {
+    alert("Please choose a student from the list, then click save.")
 
   } else {
-    data.textContent = feedbackText;
+    if (child.innerHTML !== "") {
+      var sure = confirm("This student already has feedback. Do you want to replace it?");
+      if (sure) {
+        child.innerHTML = feedbackText;
+      };
+
+    } else {
+      child.innerHTML = feedbackText;
+    };
   };
 };

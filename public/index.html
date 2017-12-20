@@ -4,36 +4,31 @@
 <head>
   <title>Flex Feedback</title>
 
+  <!-- styles -->
   <link rel="stylesheet" href="resources/css/skeleton.css">
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
-  <script src="resources/vendors/formBuilder/dist/form-builder.min.js"></script>
-
-  <script src="resources/vendors/formBuilder/dist/form-render.min.js"></script>
-
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,900|Raleway" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,900|Raleway|Open+Sans" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+  <!-- libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
-
-
+  <!-- APIs & Code Scripts -->
+  <script src="resources/vendors/formBuilder/dist/form-builder.min.js"></script>
+  <script src="resources/vendors/formBuilder/dist/form-render.min.js"></script>
   <script src="resources/js/index.js"></script>
 </head>
+
 <!-- logo bar -->
 
 <body>
-  <div class="container" style="width: 95%; border-bottom-style: solid; border-bottom-color: teal">
+  <div class="container" style="width: 95%; border-bottom-style: solid; border-bottom-color: var(--main-color)">
     <div class="row">
       <div class="top">
         <div class="flex-logo">
-          <h2 style="color: teal; font: 300; padding-left: 5px; margin-bottom: 0px; text-shadow: 1px 1px #DFE8DA">flexible<b>FEEDBACK</b></h2></div>
+          <h2 style="color: var(--main-color); font: 300; padding-left: 5px; margin-bottom: 0px; text-shadow: 1px 1px #DFE8DA">flexible<b>FEEDBACK</b></h2></div>
 
-        <div class="flex-tagline" style="padding-right: 5px; color: teal; text-shadow: 1px 1px #DFE8DA"> LET'S GET THIS DONE BEFORE LUNCH</div>
+        <div class="flex-tagline" style="padding-right: 5px; color: var(--main-color); text-shadow: 1px 1px #DFE8DA"> LET'S GET THIS DONE BEFORE LUNCH</div>
       </div>
     </div>
   </div>
@@ -47,11 +42,12 @@
       <form id="uploadForm" style="display: none">
         <input id="uploadInput" type="file"></input>
         <input id="submitFileButton" type="button" class="button-primary" value="Submit"></input>
+        <input id="cancelFileButton" type="button" class="button-primary" value="Cancel"></input>
       </form>
 
       <!-- about page tooltip and button-->
       <div class="tooltip">
-        <button class="button-primary" onclick="window.open('about.html')" style="background-color: #ffbb99; border-color:#ffbb99"><i class="fa fa-question-circle-o" style="font-size: large"></i></button>
+        <button class="button-accent" onclick="window.open('about.html')"><i class="fa fa-question-circle-o" style="font-size: large"></i></button>
         <span class="tooltiptext" style="width: 100px; margin-left: -50px">Learn more</span>
       </div>
 
@@ -83,7 +79,7 @@
     <div class="row">
 
       <!-- Form Builder & Render boxes -->
-      <div class="eight columns">
+      <div class="eight columns" style="background-color: var(--bglite-color)">
         <h4 id="templateBuilderLabel" style="text-align: center">Template Builder</h4>
         <h4 id="feedbackTemplateLabel" style="text-align: center; display: none">Feedback Template</h4>
         <div id="build-wrap">
@@ -107,16 +103,29 @@
             </div>
           </div>
         </div>
+
+        <table id="feedbackTable" class="feedbacktable">
+          <thead>
+            <tr>
+              <th>Set as Active</th>
+              <th>Student</th>
+              <th>Feedback</th>
+            </tr>
+          </thead>
+
+          <tbody>
+          </tbody>
+        </table>
       </div>
 
       <!-- Preview and bank -->
 
-      <div class="four columns">
+      <div class="four columns" style="background-color: var(--bgdark-color); border-radius: 25px; padding: 10px">
         <div id="classSetup" style="display">
           <h4 style="text-align: center; margin-bottom: 0px">Class List Setup</h4>
           <form id="classList">
-            <label for "students">Enter student names, separated by commas. Leave blank to use form without producing a feedback document.</label>
-            <textarea id="students" rows="10" cols="30"></textarea>
+            <label for "students" id="studentsLabl">Enter student names, separated by commas. Leave blank to use form without producing a feedback document.</label>
+            <textarea id="students" rows="15" cols="35"></textarea>
           </form>
         </div>
 
@@ -161,27 +170,18 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="container">
-      <div class="row">
-        <div class="twelve columns">
-          <table id="feedbackTable">
-            <tr>
-              <th>Set as Active</th>
-              <th>Student</th>
-              <th>Feedback</th>
-            </tr>
-          </table>
-        </div>
-      </div>
+
+
+  <footer class="footer">
+    <div style="padding-left: 10px">Ⓒ Copyright 2017 Christine Witcher. All rights reserved.
+      <a href="privacypolicy.htm" target="_blank">Privacy Policy</a>
+      <a href="termsofservice.html" target="_blank">Terms of Service</a>
     </div>
+  </footer>
 
-    <footer class="footer">
-      <div style="padding-left: 10px">Ⓒ Copyright 2017 Christine Witcher. All rights reserved.
-<a href="privacypolicy.htm" target="_blank">Privacy Policy</a>
-<a href="termsofservice.html" target="_blank">Terms of Service</a>
-      </div>
-    </footer>
+
+</body>
 
 </html>
-</body>
