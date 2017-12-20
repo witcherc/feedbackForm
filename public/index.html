@@ -92,27 +92,26 @@
               <span class="tooltiptext" style="width: 100px; margin-left: -50px">Edit form</span>
             </div>
 
-            <div class="tooltip">
+            <div class="tooltip" style="display: none">
               <button class="btn btn-default preview-form button-primary" onclick="previewForm()"><i class="fa fa-eye" style="font-size: large"></i></button>
               <span class="tooltiptext">Preview feedback</span>
             </div>
 
             <div class="tooltip">
               <button class="btn btn-default clear-form button-primary" onclick="clearForm()"><i class="fa fa-undo" style="font-size: large"></i></button>
-              <span class="tooltiptext" style="width: 100px; margin-left: -50px">Clear form</span>
+              <span class="tooltiptext" style="width: 100px; margin-left: -50px">Reset form</span>
             </div>
           </div>
         </div>
 
         <table id="feedbackTable" class="feedbacktable">
-          <thead>
+          <caption id="tableInstructions" style="text-align: left">To add students to this class list, use <em>Class List Setup</em>.</caption>
+          <thead id="thead">
             <tr>
-              <th>Set as Active</th>
               <th>Student</th>
               <th>Feedback</th>
             </tr>
           </thead>
-
           <tbody>
           </tbody>
         </table>
@@ -124,7 +123,7 @@
         <div id="classSetup" style="display">
           <h4 style="text-align: center; margin-bottom: 0px">Class List Setup</h4>
           <form id="classList">
-            <label for "students" id="studentsLabl">Enter student names, separated by commas. Leave blank to use form without producing a feedback document.</label>
+            <label for "students" id="studentsLabel">Enter student names, separated by commas. Leave blank to use the form without producing a feedback document.</label>
             <textarea id="students" rows="15" cols="35"></textarea>
           </form>
         </div>
@@ -137,39 +136,37 @@
           <div class="previewBox">
             <div id="preview" name="preview"></div>
           </div>
-
-          <div class="popup" onclick="copyTooltipFunction()">
-            <div class="tooltip">
-              <button id="copyText" class="button-primary" style="display: none; height: 34px; padding: 0 10px" onclick="copyText()"><i class="fa fa-copy" style="font-size: large"></i></button>
-
-              <span class="popuptext" id="copyTooltip">Copied!</span>
-              <span class="tooltiptext">Copy to clipboard</span>
+          <div id="copyButtonSet">
+            <div class="popup" onclick="copyTooltipFunction()">
+              <button id="copyText" class="button-primary" style="height: 34px; padding: 0 10px" onclick="copyText()"><i class="fa fa-copy" style="font-size: large"></i><span class="popuptext" id="copyTooltip">Copied!</span></button>
+              <label for "copyText" id="copyFeedbackLabel" style="vertical-align: middle; margin-left: 2px">Copy feedback to clipboard</label>
             </div>
           </div>
+        </div>
 
-          <div>
-            <div class="tooltip">
-              <button id="saveFeedbackToList" class="button-primary" style="display: inlineblock; height: 34px; padding: 0 10px"><i class="fa fa-save" style="font-size: large" onclick="saveToTable()"></i></button>
-              <span class="tooltiptext">Save to class list</span>
+        <div>
+          <div id="rightPane" style="display: none">
+            <div id="listButtonSet" style="display: none">
+              <button id="saveFeedbackToList" class="button-primary" style="display: inlineblock; height: 34px; padding: 0 10px" onclick="saveToTable()"><i class="fa fa-save" style="font-size: large"></i></button>
+              <label for "saveFeedbackToList" style="vertical-align: middle; margin-left: 2px">Save feedback to class list</label>
             </div>
 
             <div id="previewContainer" style="text-align: left">
-
               <div style="text-align: center; display: inline">
                 <h4 style="text-align: center; margin-bottom: 0px"><br>Comment Bank</h4>
 
-                <button class="button-primary" id="saveSelectedText" style=" height: 34px; padding: 0 10px; float: left" onclick="dndSave()"><i class="fa fa-save" style="font-size: large"></i></button>
+                <button class="button-primary" id="saveSelectedText" style=" height: 34px; padding: 0 10px; float: left" onclick="dndSave()"><i class="fa fa-camera" style="font-size: large"></i></button>
 
-                <label for "saveSelectedText" id="bankInstructions" style="vertical-align: middle; margin-left: 2px">Highlight any text and <em>click</em>.</label>
+                <label for "saveSelectedText" id="bankInstructions" style="vertical-align: middle; margin-left: 2px">Highlight any text and <em>click</em></label>
 
                 <label for "saveSelectedText" id="snippetInstructions" style="vertical-align: top; margin-left: 4px; display: none">To use snippets, drag them onto the form.<br></label>
               </div>
-
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
 
 

@@ -251,6 +251,7 @@ h6 {
   font-size: 1.5rem;
   line-height: 1.6;
   letter-spacing: 0;
+  font-family: var(--text-font);
 }
 
 p {
@@ -336,8 +337,8 @@ a:hover {
 
 .button.button-primary:hover, button.button-primary:hover, input[type="submit"].button-primary:hover, input[type="reset"].button-primary:hover, input[type="button"].button-primary:hover, .button.button-primary:focus, button.button-primary:focus, input[type="submit"].button-primary:focus, input[type="reset"].button-primary:focus, input[type="button"].button-primary:focus {
   color: white;
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
+  background-color: var(--accent-color, blue);
+  border-color: var(--accent-color, blue);
 }
 
 .button.button-accent, button.button-accent, input[type="submit"].button-accent, input[type="reset"].button-accent, input[type="button"].button-accent {
@@ -348,11 +349,9 @@ a:hover {
 
 .button.button-accent:hover, button.button-accent:hover, input[type="submit"].button-accent:hover, input[type="reset"].button-accent:hover, input[type="button"].button-accent:hover, .button.button-accent:focus, button.button-accent:focus, input[type="submit"].button-accent:focus, input[type="reset"].button-accent:focus, input[type="button"].button-accent:focus {
   color: white;
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
+  background-color: var(--accent-color, blue);
+  border-color: var(--accent-color, blue);
 }
-
-
 
 /* Forms
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -487,6 +486,11 @@ th:last-child, td:last-child {
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+.selected {
+    background-color: var(--attention-color, yellow);
+    color: gray;
 }
 
 /* Spacing
@@ -829,7 +833,7 @@ there.
   position: absolute;
   z-index: 1;
   top: -5px;
-  left: 110%;
+  right: 110%;
 }
 
 /* Popup arrow */
@@ -838,11 +842,11 @@ there.
   content: "";
   position: absolute;
   top: 50%;
-  right: 100%;
+  left: 100%;
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent var(--main-color) transparent transparent;
+  border-color:  transparent  transparent  transparent var(--main-color);
   s
 }
 
@@ -902,6 +906,7 @@ there.
 
 .previewBox {
   word-wrap: normal;
+  min-height: 20px;
   text-align: left;
   border-style: solid;
   border-width: 1px;

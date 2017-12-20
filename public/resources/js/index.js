@@ -88,6 +88,8 @@ jQuery(function($) {
         document.getElementById("recommendedButton").style.display = "none ";
         document.getElementById("feedbackTemplateLabel").style.display = "";
         document.getElementById("templateBuilderLabel").style.display = "none";
+        document.getElementById("copyButtonSet").style.display = "none";
+        document.getElementById("rightPane").style.display = "";
         $formContainer.toggle();
 
         $('form', $formContainer).formRender({
@@ -122,11 +124,12 @@ jQuery(function($) {
     document.getElementById("feedbackPreview").style.display = "none";
     document.getElementById("download").style.display = "";
     document.getElementById("uploadButton").style.display = "";
-    document.getElementById("copyText").style.display = "none";
     document.getElementById("recommendedButton").style.display = "";
     document.getElementById("feedbackTemplateLabel").style.display = "none";
     document.getElementById("templateBuilderLabel").style.display = "";
     document.getElementById("students").value = "";
+    document.getElementById("rightPane").style.display = "none";
+
 
     var table = document.getElementById('feedbackTable');
     if (table.rows.length > 1) {
@@ -195,7 +198,7 @@ jQuery(function($) {
 function clearForm() {
   document.getElementById("testForm").reset();
   document.getElementById("preview").innerHTML = "";
-  document.getElementById("copyText").style.display = "none";
+  document.getElementById("copyButtonSet").style.display = "none";
   return;
 };
 
@@ -207,7 +210,7 @@ function copyText() {
     var selection = window.getSelection() // get Selection object from currently user selected text
     selection.removeAllRanges() // unselect any user selected text (if any)
     selection.addRange(range) // add range to Selection object to select it
-    return;;
+    return;
   };
 
   var para = document.getElementById('preview');
@@ -341,7 +344,7 @@ function previewForm() {
     };
   };
 
-  document.getElementById("copyText").style.display = "";
+  document.getElementById("copyButtonSet").style.display = "";
   document.getElementById("preview").innerHTML = feedback;
 
 };
@@ -355,6 +358,9 @@ function saveNames() {
   //if the names list has some names in it
   if (namesList != "") {
 
+    document.getElementById('tableInstructions').style.display = "none";
+    document.getElementById('listButtonSet').style.display = "";
+
     var namesArray = namesList.split(",");
     var length = namesArray.length;
     var i;
@@ -364,28 +370,21 @@ function saveNames() {
       var student = namesArray[i];
       var id = namesArray[i].replace(/\s+/g, '');
       var row = table.insertRow(i + 1);
+      //var cell1 = row.insertCell(0);
       var cell1 = row.insertCell(0);
       var cell2 = row.insertCell(1);
-      var cell3 = row.insertCell(2);
       var cellLabel = i;
 
-      var button = document.createElement("BUTTON");
-      var t = document.createTextNode("Choose");
-      var p = document.createTextNode("")
+      var p = document.createTextNode("");
 
-      button.setAttribute("class", "button-primary");
-      button.setAttribute("id", id);
-      button.setAttribute("value", student);
-      button.appendChild(t);
 
       row.setAttribute("onclick", "setActive(this)");
       row.setAttribute("id", "row" + i);
 
-      cell1.appendChild(button);
-      cell2.innerHTML = namesArray[i];
-      cell3.appendChild(p);
+      cell1.innerHTML = namesArray[i];
 
-      cell3.setAttribute("id", cellLabel);
+      cell2.appendChild(p);
+      cell2.setAttribute("id", cellLabel);
     };
 
     return namesArray;
@@ -397,8 +396,16 @@ function saveNames() {
 function setActive(elem) {
   var x = elem.rowIndex - 1;
   var y = document.getElementById("feedbackTable").rows[x + 1].cells;
-  var name = y[1].innerHTML;
+  var name = y[0].innerHTML;
+  var rowId = "row" + x;
+  var oldStudent = document.getElementById("studentId").innerHTML;
+  var activeRow = "row" + oldStudent;
 
+  if (oldStudent) {
+    document.getElementById(activeRow).style.backgroundColor = null;
+  };
+
+  document.getElementById(rowId).style.backgroundColor = "var(--attention-color, yellow)";
 
   document.getElementById('activeStudentDisplay').innerHTML = "to " + name + ":";
 
