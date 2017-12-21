@@ -2,6 +2,7 @@ jQuery(function($) {
   $fbEditor = $(document.getElementById('fb-editor')),
     $formContainer = $(document.getElementById('fb-rendered-form')),
 
+
     fbOptions = {
 
       disabledActionButtons: ['data'],
@@ -31,7 +32,7 @@ jQuery(function($) {
         ],
       },
 
-      hiddenAttrs: {
+      typeHiddenAttrs: {
         'checkbox-group': [
           'name',
         ],
@@ -134,7 +135,7 @@ jQuery(function($) {
     var activeRow = "row" + oldStudent;
 
     if (oldStudent) {
-      document.getElementById(activeRow).style.backgroundColor = null;
+      document.getElementById(activeRow).style.border = null;
       document.getElementById("studentId").innerHTML = "";
     };
 
@@ -204,6 +205,9 @@ jQuery(function($) {
   document.getElementById('downloadTable').addEventListener('click', function() {
     var doc = new jsPDF('p', 'pt', 'letter');
     var res = doc.autoTableHtmlToJson(document.getElementById("feedbackTable"));
+    var date = new Date();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
 
 
 
@@ -217,7 +221,7 @@ jQuery(function($) {
         doc.text("created with Flexible Feedback (flexfeedback.com)", 20, 30);
       }
     });
-    doc.save();
+    doc.save('flexible_feedback_' + m + "_" + d);
   });
 });
 
@@ -413,6 +417,7 @@ function saveNames() {
 
       cell2.appendChild(p);
       cell2.setAttribute("id", cellLabel);
+
     };
 
     return namesArray;
@@ -420,6 +425,7 @@ function saveNames() {
     console.log('list is empty');
   };
 };
+
 
 function setActive(elem) {
   var x = elem.rowIndex - 1;
@@ -430,10 +436,10 @@ function setActive(elem) {
   var activeRow = "row" + oldStudent;
 
   if (oldStudent) {
-    document.getElementById(activeRow).style.backgroundColor = null;
+    document.getElementById(activeRow).style.border = null;
   };
 
-  document.getElementById(rowId).style.backgroundColor = "var(--attention-color, yellow)";
+  document.getElementById(rowId).style.border = "2px solid var(--attention-color, yellow)";
 
   document.getElementById('activeStudentDisplay').innerHTML = "to " + name + ":";
 

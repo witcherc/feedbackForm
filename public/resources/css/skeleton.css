@@ -353,6 +353,20 @@ a:hover {
   border-color: var(--accent-color, blue);
 }
 
+.deleteButton {
+  display: ;
+  line-height: 12px;
+       width: 18px;
+       font-size: 8pt;
+       font-family: tahoma;
+       margin-top: 1px;
+       margin-right: 2px;
+       position:absolute;
+       top:0;
+       right:0;
+}
+
+
 /* Forms
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
@@ -489,8 +503,8 @@ tr:nth-child(even) {
 }
 
 .selected {
-    background-color: var(--attention-color, yellow);
-    color: gray;
+  background-color: var(--attention-color, yellow);
+  color: gray;
 }
 
 /* Spacing
@@ -812,6 +826,50 @@ there.
   opacity: 1;
 }
 
+
+.tooltip2 {
+  position: relative;
+  display: inline-block;
+  /* If you want dots under the hoverable text */
+}
+.tooltip2 .tooltiptext2 {
+  visibility: hidden;
+  width: 200px;
+  background-color: var(--main-color);
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+  left: 110%;
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+/* Tooltip arrow */
+
+.tooltip2 .tooltiptext2::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 100%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent var(--main-color) transparent  transparent;
+}
+
+.tooltip2:hover .tooltiptext2 {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+
 /* Popup container */
 
 .popup {
@@ -846,7 +904,7 @@ there.
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color:  transparent  transparent  transparent var(--main-color);
+  border-color: transparent transparent transparent var(--main-color);
   s
 }
 

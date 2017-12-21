@@ -425,3 +425,12 @@ td,
 th {
   padding: 0;
 }
+
+.form-elements .placeholder-wrap,
+.form-elements .className-wrap,
+.form-elements .access-wrap,
+.form-elements .name-wrap,
+.form-actions .view-data,
+.form-actions .fb-save {
+  display:none;
+}
