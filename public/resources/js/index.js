@@ -160,9 +160,7 @@ jQuery(function($) {
           if (files.length <= 0) {
             alert("No file was selected.");
             return;
-          };
-
-          if (files[0].type === 'application/json') {
+          } else {
 
             var file = files[0];
             var reader = new FileReader();
@@ -177,9 +175,6 @@ jQuery(function($) {
             reader.readAsText(file);
             document.getElementById('uploadForm').style.display = "none";
             return;
-
-          } else {
-            alert("Not an accepted file type. You must upload a .json file.");
           };
         });
 
