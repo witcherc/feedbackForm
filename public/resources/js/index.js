@@ -104,7 +104,6 @@ jQuery(function($) {
 
 //pause tutorial video and close modal
   document.getElementById('closeModal').addEventListener('click', function() {
-    console.log("close clicked");
     document.getElementById('tutorialVideo').pause();
     document.getElementById('tutorialModal').style.display = 'none';
   });
