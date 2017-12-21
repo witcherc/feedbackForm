@@ -102,6 +102,14 @@ jQuery(function($) {
 
     formBuilder = $fbEditor.formBuilder(fbOptions);
 
+//pause tutorial video and close modal
+  document.getElementById('closeModal').addEventListener('click', function() {
+    console.log("close clicked");
+    document.getElementById('tutorialVideo').pause();
+    document.getElementById('tutorialModal').style.display = 'none';
+  });
+
+
   //add listener for download button and create function to download file
   document.getElementById('download').addEventListener('click',
     function(exportObj, exportName) {

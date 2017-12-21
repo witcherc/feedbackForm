@@ -46,6 +46,22 @@
   <div class="container" style="width: 95%; margin-top: 10px">
     <!-- download tooltip and button-->
     <div class="row">
+<!-- tutorial video-->
+      <button onclick="document.getElementById('tutorialModal').style.display='block'" class="button-accent" style="float: right">Tutorial</button>
+
+      <!-- The Modal -->
+      <div id="tutorialModal" class="modal">
+        <div class="modal-content">
+          <div>
+            <span id="closeModal" class="button" style="border: none; font-size: large; top: 0; right: 0">&times;</span>
+            <video id="tutorialVideo" width="100%" height="auto" controls>
+                <source src="resources/img/flexfeedbacktutorial.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+              </video>
+          </div>
+        </div>
+      </div>
+
 
       <!-- upload form-->
       <form id="uploadForm" style="display: none">
