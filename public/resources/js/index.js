@@ -150,7 +150,7 @@ jQuery(function($) {
   document.getElementById('uploadButton').addEventListener('click',
     function() {
 
-      if (window.File && window.FileReader && window.FileList) {
+      if (window.File && window.FileReader && window.FileList && window.Blob) {
 
         document.getElementById('uploadForm').style.display = "";
         document.getElementById('submitFileButton').addEventListener('click', function uploadFiles() {
