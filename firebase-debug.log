@@ -1,0 +1,35 @@
+[debug] [2018-01-05T06:27:08.387Z] ----------------------------------------------------------------------
+[debug] [2018-01-05T06:27:08.391Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2018-01-05T06:27:08.391Z] CLI Version:   3.16.0
+[debug] [2018-01-05T06:27:08.391Z] Platform:      darwin
+[debug] [2018-01-05T06:27:08.391Z] Node Version:  v8.9.3
+[debug] [2018-01-05T06:27:08.392Z] Time:          Thu Jan 04 2018 22:27:08 GMT-0800 (PST)
+[debug] [2018-01-05T06:27:08.392Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-01-05T06:27:08.413Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-01-05T06:27:08.413Z] > authorizing via signed-in user
+[debug] [2018-01-05T06:27:08.416Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-01-05T06:27:08.416Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/U8WNDyzgS68C7mQtHmHUqxsNjARO2BjAfbaTGai2Kic',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Thu Jan 04 2018 22:27:08 GMT-0800 (PST)
+[debug] [2018-01-05T06:27:08.710Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-05T06:27:08.762Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/flexfeeback  
+  
+ Thu Jan 04 2018 22:27:08 GMT-0800 (PST)
+[debug] [2018-01-05T06:27:09.161Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-05T06:27:09.162Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/flexfeeback/tokens  
+  
+ Thu Jan 04 2018 22:27:09 GMT-0800 (PST)
+[debug] [2018-01-05T06:27:09.638Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'flexfeeback'...
+[info] 
+[info] i  deploying hosting
+[info] i  hosting: preparing app directory for upload...
+[debug] [2018-01-05T06:27:11.821Z] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/flexfeeback/uploads/-L24-6O7C8BfGLTcmFx3?fileCount=21&message=  
+  
+ Thu Jan 04 2018 22:27:11 GMT-0800 (PST)

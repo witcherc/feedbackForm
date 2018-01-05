@@ -1,127 +1,98 @@
 jQuery(function($) {
   $fbEditor = $(document.getElementById('fb-editor')),
-    $formContainer = $(document.getElementById('fb-rendered-form')),
+  $formContainer = $(document.getElementById('fb-rendered-form')),
 
+  fbOptions = {
 
-    fbOptions = {
+    disabledActionButtons: ['data'],
 
-      disabledActionButtons: ['data'],
+    controlOrder: [
+      'paragraph', 'text', 'textarea', 'radio', 'checkbox-group'
+    ],
 
-      controlOrder: [
-        'paragraph',
-        'text',
-        'textarea',
-        'radio',
-        'checkbox-group'
+    typeUserDisabledAttrs: {
+      'checkbox-group': ['label'],
+      'radio-group': ['label'],
+      'textarea': [
+        'label', 'placeholder'
       ],
-
-      typeUserDisabledAttrs: {
-        'checkbox-group': [
-          'label',
-        ],
-        'radio-group': [
-          'label',
-        ],
-        'textarea': [
-          'label',
-          'placeholder'
-        ],
-        'text': [
-          'label',
-          'placeholder'
-        ],
-      },
-
-      typeHiddenAttrs: {
-        'checkbox-group': [
-          'name',
-        ],
-        'radio-group': [
-          'name',
-        ],
-        'textarea': [
-          'name',
-        ],
-        'text': [
-          'name'
-        ],
-      },
-
-      disabledAttrs: [
-        'access',
-        'className',
-        'description',
-        'inline',
-        //'label',
-        'max',
-        'maxlength',
-        'min',
-        'multiple',
-        'required',
-        'rows',
-        'step',
-        'style',
-        'subtype',
-        'toggle',
-        'value'
-      ],
-
-      disableFields: [
-        'button',
-        'file',
-        'hidden',
-        'header',
-        'date',
-        'number',
-        'autocomplete',
-        'select',
-      ],
-
-      editOnAdd: true,
-
-
-      onSave: function() {
-        $fbEditor.toggle();
-        document.getElementById("classSetup").style.display = "none";
-        document.getElementById("feedbackPreview").style.display = "";
-        document.getElementById("download").style.display = "none";
-        document.getElementById("uploadButton").style.display = "none ";
-        document.getElementById("recommendedButton").style.display = "none ";
-        document.getElementById("feedbackTemplateLabel").style.display = "";
-        document.getElementById("templateBuilderLabel").style.display = "none";
-        document.getElementById("copyButtonSet").style.display = "none";
-        document.getElementById("rightPane").style.display = "";
-        $formContainer.toggle();
-
-        $('form', $formContainer).formRender({
-          formData: formBuilder.formData
-        });
-        saveNames();
-      }
+      'text': ['label', 'placeholder']
     },
 
-    formBuilder = $fbEditor.formBuilder(fbOptions);
+    typeHiddenAttrs: {
+      'checkbox-group': ['name'],
+      'radio-group': ['name'],
+      'textarea': ['name'],
+      'text': ['name']
+    },
 
-//pause tutorial video and close modal
+    disabledAttrs: [
+      'access', 'className', 'description', 'inline',
+      //'label',
+      'max',
+      'maxlength',
+      'min',
+      'multiple',
+      'required',
+      'rows',
+      'step',
+      'style',
+      'subtype',
+      'toggle',
+      'value'
+    ],
+
+    disableFields: [
+      'button',
+      'file',
+      'hidden',
+      'header',
+      'date',
+      'number',
+      'autocomplete',
+      'select'
+    ],
+
+    editOnAdd: true,
+
+    onSave: function() {
+      $fbEditor.toggle();
+      document.getElementById("classSetup").style.display = "none";
+      document.getElementById("feedbackPreview").style.display = "";
+      document.getElementById("download").style.display = "none";
+      document.getElementById("uploadButton").style.display = "none ";
+      document.getElementById("recommendedButton").style.display = "none ";
+      document.getElementById("feedbackTemplateLabel").style.display = "";
+      document.getElementById("templateBuilderLabel").style.display = "none";
+      document.getElementById("copyButtonSet").style.display = "none";
+      document.getElementById("rightPane").style.display = "";
+      $formContainer.toggle();
+
+      $('form', $formContainer).formRender({formData: formBuilder.formData});
+      saveNames();
+    }
+  },
+
+  formBuilder = $fbEditor.formBuilder(fbOptions);
+
+  //pause tutorial video and close modal
   document.getElementById('closeModal').addEventListener('click', function() {
     document.getElementById('tutorialVideo').pause();
     document.getElementById('tutorialModal').style.display = 'none';
   });
 
-
   //add listener for download button and create function to download file
-  document.getElementById('download').addEventListener('click',
-    function(exportObj, exportName) {
-      var exportObj = formBuilder.actions.getData('json');
+  document.getElementById('download').addEventListener('click', function(exportObj, exportName) {
+    var exportObj = formBuilder.actions.getData('json');
 
-      var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
 
-      var downloadAnchorNode = document.createElement('a');
-      downloadAnchorNode.setAttribute("href", dataStr);
-      downloadAnchorNode.setAttribute("download", exportName + ".json");
-      downloadAnchorNode.click();
-      downloadAnchorNode.remove();
-    });
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  });
 
   //function for edit form button: resets feedback preview and goes back to form editor
   $('.edit-form', $formContainer).click(function() {
@@ -146,7 +117,6 @@ jQuery(function($) {
       document.getElementById("studentId").innerHTML = "";
     };
 
-
     var table = document.getElementById('feedbackTable');
     if (table.rows.length > 1) {
       document.getElementById('studentsLabel').innerHTML = "To add additional students, enter their names separated by commas."
@@ -154,46 +124,45 @@ jQuery(function($) {
   });
 
   //uploading a Template
-  document.getElementById('uploadButton').addEventListener('click',
-    function() {
+  document.getElementById('uploadButton').addEventListener('click', function() {
 
-      if (window.File && window.FileReader && window.FileList && window.Blob) {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
 
-        document.getElementById('uploadForm').style.display = "";
-        document.getElementById('submitFileButton').addEventListener('click', function uploadFiles() {
+      document.getElementById('uploadForm').style.display = "";
+      document.getElementById('submitFileButton').addEventListener('click', function uploadFiles() {
 
-          var files = document.getElementById('uploadInput').files;
+        var files = document.getElementById('uploadInput').files;
 
-          if (files.length <= 0) {
-            alert("No file was selected.");
-            return;
-          } else {
+        if (files.length <= 0) {
+          alert("No file was selected.");
+          return;
+        } else {
 
-            var file = files[0];
-            var reader = new FileReader();
+          var file = files[0];
+          var reader = new FileReader();
 
-            reader.onload = function(event) {
-              var formData = event.target.result;
-              var formattedData = JSON.parse(formData);
-              console.log(formattedData);
-              formBuilder.actions.setData(formattedData);
-            };
-
-            reader.readAsText(file);
-            document.getElementById('uploadForm').style.display = "none";
-            return;
+          reader.onload = function(event) {
+            var formData = event.target.result;
+            var formattedData = JSON.parse(formData);
+            console.log(formattedData);
+            formBuilder.actions.setData(formattedData);
           };
-        });
 
-        document.getElementById('cancelFileButton').addEventListener('click', function cancelFileUpload() {
+          reader.readAsText(file);
           document.getElementById('uploadForm').style.display = "none";
           return;
-        });
+        };
+      });
 
-      } else {
-        alert('File uploading is not fully supported in this browser. Please try another browser (like Chrome).');
-      };
-    });
+      document.getElementById('cancelFileButton').addEventListener('click', function cancelFileUpload() {
+        document.getElementById('uploadForm').style.display = "none";
+        return;
+      });
+
+    } else {
+      alert('File uploading is not fully supported in this browser. Please try another browser (like Chrome).');
+    };
+  });
 
   //function to set recommended template as form dataStr
   document.getElementById('recommendedButton').addEventListener('click', function() {
@@ -211,10 +180,12 @@ jQuery(function($) {
     var m = date.getMonth() + 1;
     var d = date.getDate();
 
-
-
     doc.autoTable(res.columns, res.data, {
       startY: 60,
+      tableWidth: 'auto',
+      styles: {
+        overflow: 'linebreak'
+      },
       theme: 'striped',
       headerStyles: {
         fillColor: [50, 140, 193]
@@ -316,7 +287,7 @@ function previewForm() {
 
     switch (tag) {
 
-      //manage paragraph text
+        //manage paragraph text
       case 'P':
         feedback += x[0].childNodes[i].childNodes[0].innerHTML + " ";
         break;
@@ -387,7 +358,6 @@ function saveNames() {
   var namesList = document.getElementById('students').value;
   var table = document.getElementById('feedbackTable');
 
-
   //if the names list has some names in it
   if (namesList != "") {
 
@@ -410,7 +380,6 @@ function saveNames() {
 
       var p = document.createTextNode("");
 
-
       row.setAttribute("onclick", "setActive(this)");
       row.setAttribute("id", "row" + i);
       row.setAttribute("contentEditable", true);
@@ -427,7 +396,6 @@ function saveNames() {
     console.log('list is empty');
   };
 };
-
 
 function setActive(elem) {
   var x = elem.rowIndex - 1;

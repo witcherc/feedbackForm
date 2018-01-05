@@ -49,13 +49,19 @@
   /*use: var(--text-font) */
 }
 
+
+
+/* browser normalization*/
+
+
+
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 .container {
   position: relative;
   width: 100%;
-  max-width: 960px;
+  max-width: 1250px;
   margin: 0 auto;
   padding: 0 20px;
   box-sizing: border-box;
@@ -206,7 +212,7 @@ f
 
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   font-weight: 300;
 }
 
@@ -256,6 +262,7 @@ h6 {
 
 p {
   font-family: var(--text-font);
+  margin-bottom: 0.5rem;
 }
 
 label {
@@ -353,6 +360,9 @@ a:hover {
   border-color: var(--accent-color, blue);
 }
 
+
+
+
 .deleteButton {
   display: ;
   line-height: 12px;
@@ -391,8 +401,10 @@ input[type="email"], input[type="number"], input[type="search"], input[type="tex
 
 textarea {
   min-height: 65px;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  width: 100%;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  box-sizing: border-box;
 }
 
 input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="text"]:focus, input[type="tel"]:focus, input[type="url"]:focus, input[type="password"]:focus, textarea:focus, select:focus {
@@ -400,9 +412,8 @@ input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focu
   outline: 0;
 }
 
-/*
 label, legend {
-  display: block;
+  display: inline;
   margin-bottom: .5rem;
   font-weight: 600;
 }
@@ -411,20 +422,56 @@ fieldset {
   padding: 0;
   border-width: 0;
 }
-/*
+
 input[type="checkbox"], input[type="radio"] {
-  display: inline;
-  height: 100%;
-  margin-top: 2px;
+  display: inline-block;
   vertical-align: middle;
+  position: relative;
 }
 
 label>.label-body {
-  display: inline-block;
+  display: inline;
   margin-left: .5rem;
   font-weight: normal;
 }
-*/
+
+.checkbox {
+  margin-top: -2.5rem;
+}
+
+.checkbox input,
+.checkbox label {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+.checkbox input[type="checkbox"] {
+    top: 2.25rem;
+}
+
+.checkbox label {
+  margin-left: 15px;
+}
+
+.radio {
+  margin-top: -2.5rem;
+}
+
+.radio input,
+.radio label {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+.radio input {
+    top: 2.1rem;
+}
+
+.radio label {
+  margin-left: 15px;
+}
 
 /* Lists
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -515,11 +562,12 @@ button, .button {
 }
 
 input, textarea, select, fieldset {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
 pre, blockquote, dl, figure, table, p, ul, ol, form {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 /* Utilities
@@ -700,6 +748,14 @@ there.
   display: block;
   text-align: center;
   margin: 2.5rem auto 0;
+}
+
+.center-img {
+  .value-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* LETS SORT OUT THAT TOP LOGO BAR*/
