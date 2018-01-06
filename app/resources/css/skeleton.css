@@ -415,7 +415,6 @@ input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focu
 label, legend {
   display: inline;
   margin-bottom: .5rem;
-  font-weight: 600;
 }
 
 fieldset {
@@ -435,27 +434,12 @@ label>.label-body {
   font-weight: normal;
 }
 
-.checkbox {
-  margin-top: -2.5rem;
-}
-
 .checkbox input,
 .checkbox label {
   display: inline-block;
   margin-bottom: 0;
   vertical-align: middle;
-}
-
-.checkbox input[type="checkbox"] {
-    top: 2.25rem;
-}
-
-.checkbox label {
-  margin-left: 15px;
-}
-
-.radio {
-  margin-top: -2.5rem;
+  width: auto;
 }
 
 .radio input,
@@ -463,14 +447,7 @@ label>.label-body {
   display: inline-block;
   margin-bottom: 0;
   vertical-align: middle;
-}
-
-.radio input {
-    top: 2.1rem;
-}
-
-.radio label {
-  margin-left: 15px;
+  width: auto;
 }
 
 /* Lists
@@ -566,8 +543,9 @@ input, textarea, select, fieldset {
   width: 100%;
 }
 
+
 pre, blockquote, dl, figure, table, p, ul, ol, form {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Utilities
