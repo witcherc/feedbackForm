@@ -181,15 +181,12 @@ jQuery(function($) {
     var d = date.getDate();
 
     doc.autoTable(res.columns, res.data, {
-      startY: 60,
       tableWidth: 'auto',
-      styles: {
-        overflow: 'linebreak'
-      },
-      theme: 'striped',
-      headerStyles: {
-        fillColor: [50, 140, 193]
-      },
+      bodyStyles: {valign: 'top'},
+      styles: {overflow: 'linebreak'},
+      columnStyles: {text: {columnWidth: 'auto'}},
+      theme: 'grid',
+      headerStyles: {fillColor: [37, 116, 142]},
       addPageContent: function(data) {
         doc.text("created with Flexible Feedback (flexfeedback.com)", 20, 30);
       }
@@ -243,12 +240,29 @@ function copyTooltipFunction() {
   return;
 };
 
+// When the user clicks on the save snippet button, open the popup
+function saveToListTooltipFunction() {
+  var popup = document.getElementById("saveToListTooltip");
+  popup.classList.toggle("show");
+  setTimeout(function() {
+    popup.classList.toggle("hide")
+  }, 1000);
+  return;
+};
+
 //function to save selected text to the bank
 function dndSave() {
   function getSelectionText() {
-    var selectedText = "";
-    if (window.getSelection) { // all modern browsers and IE9+
-      selectedText = window.getSelection().toString();
+    var selectedText;
+
+    if (window.getSelection) { // all browsers, except IE before version 9
+      if (document.activeElement && (document.activeElement.tagName.toLowerCase() == "textarea" || document.activeElement.tagName.toLowerCase() == "input")) {
+        var text = document.activeElement.value;
+        selectedText = text.substring(document.activeElement.selectionStart, document.activeElement.selectionEnd);
+      } else {
+        var selectedRange = window.getSelection();
+        selectedText = selectedRange.toString();
+      }
     }
     return selectedText;
   }
@@ -256,7 +270,7 @@ function dndSave() {
   function saveToBank() {
     var div = document.createElement("DIV");
     var t = getSelectionText();
-    if (t != "") {
+    if (t !== "") {
       div.setAttribute("id", Date.now());
       div.setAttribute("draggable", "true");
       div.setAttribute("class", "bank");
