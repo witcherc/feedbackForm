@@ -41,7 +41,7 @@
   /*use for the text on the buttons: var(--button-color) */
   --bglite-color: #ffffff;
   /*use for the lighter background: var(--bglite-color) */
-  --bgdark-color: #f2f2f2;
+  --bgdark-color: #f6f2f2;
   /*use for the darker background: var(--bgdark-color) */
   --title-font: Raleway;
   /*use: var(--title-font) */
@@ -202,7 +202,6 @@ body {
   margin: 0;
 }
 
-f
 /* Typography
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
@@ -242,7 +241,7 @@ h4 {
   color: var(--main-color, blue);
 }
 
-h5 {
+h5, summary {
   font-size: 1.8rem;
   line-height: 1.5;
   letter-spacing: -.05rem;
@@ -281,7 +280,7 @@ label {
   h4 {
     font-size: 3.0rem;
   }
-  h5 {
+  h5, summary {
     font-size: 2.4rem;
   }
   h6 {
@@ -291,6 +290,10 @@ label {
 
 p {
   margin-top: 0;
+}
+
+summary {
+  cursor: help;
 }
 
 /* Links
@@ -497,13 +500,14 @@ table {
 }
 
 th, td {
-  padding: 12px 15px;
+  padding: 0.5rem 1rem;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 th {
   text-align: center;
+  background-color: #f2f2f2;
 }
 
 th:first-child, td:first-child {
@@ -511,11 +515,7 @@ th:first-child, td:first-child {
 }
 
 th:last-child, td:last-child {
-  padding-right: 0;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
+  padding-right: 1rem;
 }
 
 .selected {
@@ -689,11 +689,164 @@ there.
   padding: 10px;
 }
 
-/* THIS LITTLE FOOTER, just chillin... */
-
-.footer {
+.delete-button {
+  background: red;
+  border: 1.5px solid red;
+  border-radius: 2em;
+  color: white;
+  display: inline-block;
+  font-size: 17px;
+  height: 20px;
+  line-height: 2px;
   margin: 0;
   padding: 0;
+  text-align: center;
+  width: 20px;
+}
+
+.delete-button:hover, .delete-button:focus {
+  background: white;
+  border: 1.5px solid red;
+  border-radius: 2em;
+  color: red;
+}
+
+.tutorial-bar {
+  background-color: var(--bgdark-color);
+  border: 2px solid var(--main-color);
+  border-top: none;
+  width: 95%;
+  padding: 0 1% 1% 1%;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.collapsed {
+  background: var(--main-color);
+}
+
+.close-tutorial {
+  background: var(--attention-color);
+  border-radius: 2em;
+  border: none;
+  color: white;
+  display: inline-block;
+  font-size: 20px;
+  height: 30px;
+  line-height: 1px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 30px;
+  position: absolute;
+  bottom: 2%;
+  right: 5px;
+}
+
+.close-tutorial:hover, .close-tutorial:focus {
+  color: white;
+  border: none;
+  outline: none;
+}
+
+.pulse {
+  animation: pulse 1.5s infinite;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 var(--attention-color);
+  }
+  70% {
+    -webkit-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 var(--attention-color);
+    box-shadow: 0 0 0 0 var(--attention-color);
+  }
+  70% {
+    -moz-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+    box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+  }
+  100% {
+    -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+  }
+}
+
+.rotate {
+  -moz-transition: all .5s linear;
+  -webkit-transition: all .5s linear;
+  transition: all .5s linear;
+}
+
+.rotate.down {
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.button-set {
+  display: inline-block;
+}
+
+.learn-more {
+  /*text-decoration: underline wavy var(--attention-color);*/
+  text-shadow: 0px 0px 4px var(--attention-color);
+  cursor: pointer;
+}
+
+.feedback-button {
+  color: var(--main-color);
+  background-color: var(--subtle-color);
+  height: 34px;
+  margin: 0 2px 2px 2px;
+  padding: 0 10px;
+  float: left;
+}
+
+.feedback-button:hover, .feedback-button:focus, {
+  color: white;
+  background-color: var(--subtle-color);
+  height: 34px;
+  margin: 0 2px 2px 2px;
+  padding: 0 10px;
+  float: left;
+}
+
+.feedbacktable {
+  margin-right: 1rem;
+  margin-top: 0;
+  margin-left: 0;
+  border-radius: 20px;
+}
+
+.select-student {
+  margin: 0 2px 2px 2px;
+  height: 34px;
+}
+
+.edit-button-group {
+  display: inline;
+}
+
+.delete-button-cell {
+  display: none;
+  text-align: center;
+}
+
+.success-flash {
+  box-shadow: 0 0 15px var(--attention-color);
+}
+
+.footer {
+  padding: 1rem;
   overflow: hidden;
   color: var(--main-color);
   bottom: 0;
@@ -790,6 +943,7 @@ there.
   background-color: white;
   padding: 5px;
   margin: 5px;
+  cursor: copy;
 }
 
 .one {
@@ -802,187 +956,128 @@ there.
   text-align: center;
 }
 
-/* Tooltip container */
-
-.tooltip {
-  position: relative;
-  display: inline-block;
-  /* If you want dots under the hoverable text */
+.key-table {
+  border: none;
+  cursor: help;
+  margin-top: 120px;
 }
 
-/* Tooltip text */
+@media screen and (max-width: 550px) {
+  .key-table {
+    display: none;
+  }
+}
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 200px;
-  background-color: var(--main-color);
-  color: #fff;
+.key-table tr, .key-table th, .key-table td {
   text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-  /* Position the tooltip text */
-  position: absolute;
-  z-index: 1;
-  top: 100%;
-  left: 50%;
-  margin-left: -100px;
-  /* Fade in tooltip */
-  opacity: 0;
-  transition: opacity 1s;
+  color: gray;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
 }
 
-/* Tooltip arrow */
-
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent var(--main-color) transparent;
+.xlsx {
+  display: none;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
+.key-table td {
+  height: 42.5px;
 }
 
-.tooltip2 {
-  position: relative;
+.preview-container {
+  background-color: var(--bgdark-color);
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 1rem;
   display: inline-block;
-  /* If you want dots under the hoverable text */
+  width: 100%;
 }
 
-.tooltip2 .tooltiptext2 {
-  visibility: hidden;
-  width: 200px;
-  background-color: var(--main-color);
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-  /* Position the tooltip text */
-  position: absolute;
-  z-index: 1;
-  top: 0px;
-  left: 110%;
-  /* Fade in tooltip */
-  opacity: 0;
-  transition: opacity 1s;
+.table-container {
+  border: 2px solid var(--bgdark-color);
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 15px;
 }
 
-/* Tooltip arrow */
-
-.tooltip2 .tooltiptext2::after {
-  content: "";
-  position: absolute;
-  top: 12px;
-  right: 100%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent var(--main-color) transparent transparent;
+.preview-child {
+  height: 250px;
+  background-color: var(--bgdark-color);
+  border: 1px solid gray;
+  overflow: auto;
+  border-radius: 5px;
+  padding: 0.5rem;
 }
 
-.tooltip2:hover .tooltiptext2 {
-  visibility: visible;
-  opacity: 1;
+.editable {
+    background-color: white;
+    border: 1px solid var(--main-color);
 }
 
-/* Popup container */
+.thin {
+  padding: 0 1rem;
+  height: 30px;
+  line-height: 20px;
+}
 
-.popup {
-  position: relative;
+.eraser {
+  float: right;
+  padding: 5px;
   display: inline-block;
-  cursor: pointer;
+  cursor: move;
+  color: red;
 }
 
-/* The actual popup (appears on bottom) */
-
-.popup .popuptext {
-  visibility: hidden;
-  width: 80px;
-  background-color: var(--main-color);
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  top: -5px;
-  right: 110%;
+.save-template {
+  background-color: var(--attention-color);
 }
 
-/* Popup arrow */
-
-.popup .popuptext::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  margin-top: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent transparent var(--main-color);
-  s
+.clear-all {
+  background-color: none;
 }
 
-/* Toggle this class when clicking on the popup container (hide and show the popup) */
-
-.popup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s
+.bright {
+  height: 30px;
+  ;
+  background: var(--main-color);
+  border: none;
+  border-radius: 2em;
+  width: 30px;
+  line-height: 1px;
+  font-size: large;
+  padding: 0;
+  margin: 0;
+  color: var(--attention-color);
+  float: right;
 }
 
-.popup .hide {
-  -webkit-animation: fadeOut 1s;
-  animation: fadeOut 1s;
-  visibility: hidden;
+.attention-pulse {
+  animation: spin 10s;
+  animation-delay: 5s;
+  animation-iteration-count: 3;
 }
 
-/* Add animation (fade in the popup) */
-
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  to {
-    opacity: 1;
+  80% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.bright:hover {
+  color: var(--main-color);
+  background: var(--attention-color);
 }
 
-/* Add animation (fade in the popup) */
-
-@-webkit-keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+.bring:focus {
+  color: var(--attention-color);
+  background: var(--main-color);
 }
 
 .previewBox {
@@ -995,31 +1090,15 @@ there.
   padding: 2px;
 }
 
-.modal {
-  z-index: 3;
-  display: none;
-  padding-top: 100px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4)
-}
-
-.modal-content {
-  margin: auto;
-  background-color: #fff;
-  position: relative;
-  padding: 0;
-  outline: 0;
-  width: 600px
-}
-
 .display-topright {
   position: absolute;
   right: 0;
   top: 0
+}
+
+.mouse-pointer {
+  z-index: 1;
+  position: absolute;
+  top: 30%;
+  right: 50%;
 }
