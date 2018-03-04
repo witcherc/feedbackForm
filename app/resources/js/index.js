@@ -1,85 +1,87 @@
 jQuery(function($) {
   $fbEditor = $(document.getElementById('fb-editor')),
-  $formContainer = $(document.getElementById('fb-rendered-form')),
+    $formContainer = $(document.getElementById('fb-rendered-form')),
 
-  fbOptions = {
+    fbOptions = {
 
-    disabledActionButtons: ['data'],
+      disabledActionButtons: ['data'],
 
-    controlOrder: [
-      'paragraph', 'text', 'textarea', 'radio', 'checkbox-group'
-    ],
-
-    typeUserDisabledAttrs: {
-      'checkbox-group': [
-        'label', 'name'
+      controlOrder: [
+        'paragraph', 'text', 'textarea', 'radio', 'checkbox-group'
       ],
-      'radio-group': ['label'],
-      'textarea': [
-        'label', 'placeholder', 'name'
+
+      typeUserDisabledAttrs: {
+        'checkbox-group': [
+          'label', 'name'
+        ],
+        'radio-group': ['label'],
+        'textarea': [
+          'label', 'placeholder', 'name'
+        ],
+        'text': ['label', 'placeholder', 'name']
+      },
+
+      disabledAttrs: [
+        'access', 'className', 'description', 'inline',
+        //'label',
+        'max',
+        'maxlength',
+        'min',
+        'multiple',
+        //'name',
+        'required',
+        'rows',
+        'step',
+        'style',
+        'subtype',
+        'toggle',
+        'value'
       ],
-      'text': ['label', 'placeholder', 'name']
+
+      disableFields: [
+        'button',
+        'file',
+        'hidden',
+        'header',
+        'date',
+        'number',
+        'autocomplete',
+        'select'
+      ],
+
+      editOnAdd: true,
+
+      onSave: function() {
+        $fbEditor.toggle();
+        $("#classSetup").hide();
+        $('#previewContainer').removeClass('four');
+        $('#previewContainer').addClass('five');
+        $("#feedbackPreview").show();
+        $("#download").hide();
+        $("#uploadButton").hide();
+        $("#recommendedButton").hide();
+        $("#feedbackTemplateLabel").show();
+        $("#templateBuilderLabel").hide();
+        $("#key").hide();
+        $("#copyButtonSet").hide();
+        $("#rightPane").show();
+        $('#editBtn').show();
+        $('#resetBtn').show();
+        $('#feedbackTable').attr('contenteditable', false);
+        $('.delete-button-cell').hide();
+        $('#first-page-tutorial').hide();
+        $('#second-page-tutorial').show();
+        $formContainer.toggle();
+
+        $('form', $formContainer).formRender({
+          formData: formBuilder.formData
+        });
+        saveNames();
+      }
+
     },
 
-    disabledAttrs: [
-      'access', 'className', 'description', 'inline',
-      //'label',
-      'max',
-      'maxlength',
-      'min',
-      'multiple',
-      //'name',
-      'required',
-      'rows',
-      'step',
-      'style',
-      'subtype',
-      'toggle',
-      'value'
-    ],
-
-    disableFields: [
-      'button',
-      'file',
-      'hidden',
-      'header',
-      'date',
-      'number',
-      'autocomplete',
-      'select'
-    ],
-
-    editOnAdd: true,
-
-    onSave: function() {
-      $fbEditor.toggle();
-      $("#classSetup").hide();
-      $('#previewContainer').removeClass('four');
-      $('#previewContainer').addClass('five');
-      $("#feedbackPreview").show();
-      $("#download").hide();
-      $("#uploadButton").hide();
-      $("#recommendedButton").hide();
-      $("#feedbackTemplateLabel").show();
-      $("#templateBuilderLabel").hide();
-      $("#key").hide();
-      $("#copyButtonSet").hide();
-      $("#rightPane").show();
-      $('#editBtn').show();
-      $('#resetBtn').show();
-      $('#feedbackTable').attr('contenteditable', false);
-      $('.delete-button-cell').hide();
-      $('#first-page-tutorial').hide();
-      $('#second-page-tutorial').show();
-      $formContainer.toggle();
-
-      $('form', $formContainer).formRender({formData: formBuilder.formData});
-      saveNames();
-    }
-
-  },
-
-  formBuilder = $fbEditor.formBuilder(fbOptions);
+    formBuilder = $fbEditor.formBuilder(fbOptions);
 
   //add listener for tmplate download button and create function to download file
   $('#download').on('click', function(exportObj, exportName) {
@@ -253,7 +255,9 @@ jQuery(function($) {
     html = $clonedHtml.html();
     blob = new Blob([
       '\ufeff', css + html
-    ], {type: 'application/msword'});
+    ], {
+      type: 'application/msword'
+    });
     url = URL.createObjectURL(blob);
     link = document.createElement('A');
     link.href = url;
@@ -375,12 +379,26 @@ function dndSave() {
 function backUpBank() {
   var pom = document.createElement('a');
   var bankList = document.getElementsByClassName('bank');
-  var bankArray = [];
+  var bankObj = [];
+
+  console.log(bankList);
+  /*
+  for (var i = 0; i < bankList.length; i++) {
+          var text = bankList[i].innerHTML;
+          var index = bankList[i].index;
+    }
+  */
+
+
   for (i = 0; i < bankList.length; i++) {
-    var newRow = '"' + bankList[i].innerText + '"';
-    bankArray.push(newRow);
+    var newItem = '[' + bankList[i].innerText + ']';
+    bankObj[i] = newItem;
   }
-  var blob = new Blob([bankArray], {type: 'text/csv;charset=utf-8;'});
+
+
+  var blob = new Blob([bankObj], {
+    type: 'text/csv;charset=utf-8;'
+  });
   var url = URL.createObjectURL(blob);
   pom.href = url;
   pom.setAttribute('download', 'comment_bank.csv');
@@ -433,17 +451,22 @@ function clearOld() {
   return;
 };
 
-function populateNew(reader) {
-  var newBankString = "[" + reader.result + "]";
 
+//TODO figure out why we're getting a JSON error with some file uploads
+function populateNew(reader) {
+  var newBankString = reader.result;
+  var clean = newBankString.substr(1).slice(0, -1)
+  var split = clean.split('],[');
+  console.log(split);
+/*
   try {
-    var newBankList = JSON.parse(newBankString);
+    var newBankList = JSON.parse(split);
   } catch (error) {
     alert("Oh no! There is something wrong with this file. Try a different file. (" + error + ")");
-  }
+  }*/
 
-  for (i = 0; i < newBankList.length; i++) {
-    var t = newBankList[i];
+  for (i = 0; i < split.length; i++) {
+    var t = split[i];
 
     if (t !== "") {
       var div = document.createElement("DIV");
@@ -502,7 +525,7 @@ function previewForm() {
 
     switch (tag) {
 
-        //manage paragraph text
+      //manage paragraph text
       case 'P':
         feedback += x[0].childNodes[i].childNodes[0].innerHTML + " ";
         break;
@@ -781,7 +804,7 @@ function deleteStudent(elem) {
 function setIds() {
   $('#tbody tr').attr('id', function(index) {
     return 'row' + (
-    index);
+      index);
   });
 };
 
